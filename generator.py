@@ -12,7 +12,7 @@ CHARSET: str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 LENGTH: int = 4
 OUTPUT_DIR: Path = Path("output")
 URL_TEMPLATE: jinja2.Template = jinja2.Template(
-    "https://pontos.mobilidade.rio/{{ code }}")
+    "https://mobilidade.rio/{{ code }}")
 
 
 def generate_code(charset: Union[str, List[str]] = CHARSET, length: int = LENGTH) -> str:

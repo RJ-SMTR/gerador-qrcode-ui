@@ -1,3 +1,7 @@
+# QRCode Files
+output/*
+qrcodes.zip
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
