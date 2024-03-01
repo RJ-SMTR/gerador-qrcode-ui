@@ -61,6 +61,6 @@ jobs:
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
       run: |-
-        envsubst < ./k8s/deployment.yaml > deployment.yml
+        envsubst < deployment.yaml > deployment.yml
         kubectl apply -n gerador-qrcode -f deployment.yml
         kubectl get services -n gerador-qrcode -o wide
