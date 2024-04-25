@@ -1,33 +1,13 @@
 from pathlib import Path
 
 import io
-import json
-import os
-import unicodedata
 import zipfile
 
 import streamlit as st
-import streamlit_authenticator as stauth
 import jinja2
 import qrcode
-from infisical import InfisicalClient
 
 st.set_page_config(page_title="Gerador de QRCode - SMTR", page_icon='./favicon.ico')
-
-client = InfisicalClient(
-        site_url=os.getenv('INFISICAL_URL'),
-        token=os.getenv('INFISICAL_TOKEN')
-    )
-
-secret = client.get_secret(secret_name='AUTHENTICATION', path='/', environment='prod').secret_value
-config = json.loads(unicodedata.normalize("NFKD", secret))
-authenticator = stauth.Authenticate(
-    config['credentials'],
-    config['cookie']['name'],
-    config['cookie']['key'],
-    config['cookie']['expiry_days'],
-    config['preauthorized']
-)
 
 CHARSET: str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 LENGTH: int = 4
@@ -79,12 +59,4 @@ def main():
         st.download_button('Baixar em formato .zip', file_name='qrcodes.zip', data=get_zipfile(codigos), disabled=True if not codigos else False)
 
 if __name__ == "__main__":   
-    authenticator.login('Login', 'main')
-    if st.session_state["authentication_status"]:
-        authenticator.logout('Logout', 'main', key='unique_key')
-        st.write(f'Bem vinda(o) *{st.session_state["name"]}*!')
-        main()
-    elif st.session_state["authentication_status"] is False:
-        st.error('Usuário ou senha incorreta')
-    elif st.session_state["authentication_status"] is None:
-        st.warning('Por favor insira seu nome de usuário e senha')
+    main()
