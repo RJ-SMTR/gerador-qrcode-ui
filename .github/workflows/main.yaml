@@ -62,5 +62,6 @@ jobs:
     - name: Deploy
       run: |-
         envsubst '$PROJECT_ID,$IMAGE_GERADOR_QRCODE,$GITHUB_SHA' < deployment.yaml > deployment.yml
+        cat deployment.yml
         kubectl apply -f deployment.yml
         kubectl get services -n gerador-qrcode -o wide
