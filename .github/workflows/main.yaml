@@ -62,5 +62,5 @@ jobs:
     - name: Deploy
       run: |-
         envsubst < deployment.yaml > deployment.yml
-        kubectl apply -n gerador-qrcode -f deployment.yml
+        kubectl apply -f deployment.yml
         kubectl get services -n gerador-qrcode -o wide
